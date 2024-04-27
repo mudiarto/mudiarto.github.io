@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "Kusno Mudiarto's Blog"
+  site-url: "https://mudiarto.github.io/mudiarto.github.io"
+  description: "Kusno Mudiarto's Blog"
+  repo-branch: main
+  repo-url: "https://github.com/mudiarto/mudiarto.github.io"
