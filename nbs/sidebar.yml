@@ -2,3 +2,5 @@ website:
   sidebar:
     contents:
       - index.ipynb
+      - 20240427_update_resume.ipynb
+      - how-to-download-and-run-models-from-huggingface.qmd

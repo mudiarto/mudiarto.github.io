@@ -1,0 +1,151 @@
+# How to download & run GGUF models
+
+**CREDIT to [PrunaAI](https://www.pruna.ai/) for providing the instruction.**
+
+Source: <https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/blob/main/README.md>
+
+
+## How to download GGUF files ?
+
+**Note for manual downloaders:** You almost never want to clone the entire repo! Multiple different quantisation formats are provided, and most users only want to pick and download a single file.
+
+The following clients/libraries will automatically download models for you, providing a list of available models to choose from:
+
+* LM Studio
+* LoLLMS Web UI
+* Faraday.dev
+
+- **Option A** - Downloading in `text-generation-webui`:
+- **Step 1**: Under Download Model, you can enter the model repo: PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed and below it, a specific filename to download, such as: phi-2.IQ3_M.gguf.
+- **Step 2**: Then click Download.
+
+- **Option B** - Downloading on the command line (including multiple files at once):
+- **Step 1**: We recommend using the `huggingface-hub` Python library:
+```shell
+pip3 install huggingface-hub
+```
+- **Step 2**: Then you can download any individual model file to the current directory, at high speed, with a command like this:
+```shell
+huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False
+```
+<details>
+    <summary>More advanced huggingface-cli download usage (click to read)</summary>
+Alternatively, you can also download multiple files at once with a pattern:
+
+```shell
+huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed --local-dir . --local-dir-use-symlinks False --include='*Q4_K*gguf'
+```
+
+For more documentation on downloading with `huggingface-cli`, please see: [HF -> Hub Python Library -> Download files -> Download from the CLI](https://huggingface.co/docs/huggingface_hub/guides/download#download-from-the-cli).
+
+To accelerate downloads on fast connections (1Gbit/s or higher), install `hf_transfer`:
+
+```shell
+pip3 install hf_transfer
+```
+
+And set environment variable `HF_HUB_ENABLE_HF_TRANSFER` to `1`:
+
+```shell
+HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False
+```
+
+Windows Command Line users: You can set the environment variable by running `set HF_HUB_ENABLE_HF_TRANSFER=1` before the download command.
+</details>
+<!-- README_GGUF.md-how-to-download end -->
+
+<!-- README_GGUF.md-how-to-run start -->
+
+## How to run model in GGUF format?
+- **Option A** - Introductory example with `llama.cpp` command
+
+Make sure you are using `llama.cpp` from commit [d0cee0d](https://github.com/ggerganov/llama.cpp/commit/d0cee0d36d5be95a0d9088b674dbb27354107221) or later.
+
+```shell
+./main -ngl 35 -m Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 -p "<s>[INST] {prompt\} [/INST]"
+```
+
+Change `-ngl 32` to the number of layers to offload to GPU. Remove it if you don't have GPU acceleration.
+
+Change `-c 32768` to the desired sequence length. For extended sequence models - eg 8K, 16K, 32K - the necessary RoPE scaling parameters are read from the GGUF file and set by llama.cpp automatically. Note that longer sequence lengths require much more resources, so you may need to reduce this value.
+
+If you want to have a chat-style conversation, replace the `-p <PROMPT>` argument with `-i -ins`
+
+For other parameters and how to use them, please refer to [the llama.cpp documentation](https://github.com/ggerganov/llama.cpp/blob/master/examples/main/README.md)
+
+- **Option B** - Running in `text-generation-webui`
+
+Further instructions can be found in the text-generation-webui documentation, here: [text-generation-webui/docs/04 ‐ Model Tab.md](https://github.com/oobabooga/text-generation-webui/blob/main/docs/04%20-%20Model%20Tab.md#llamacpp).
+
+- **Option C** - Running from Python code
+
+You can use GGUF models from Python using the [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) or [ctransformers](https://github.com/marella/ctransformers) libraries. Note that at the time of writing (Nov 27th 2023), ctransformers has not been updated for some time and is not compatible with some recent models. Therefore I recommend you use llama-cpp-python.
+
+    ### How to load this model in Python code, using llama-cpp-python
+
+    For full documentation, please see: [llama-cpp-python docs](https://abetlen.github.io/llama-cpp-python/).
+
+    #### First install the package
+
+    Run one of the following commands, according to your system:
+
+    ```shell
+    # Base ctransformers with no GPU acceleration
+    pip install llama-cpp-python
+    # With NVidia CUDA acceleration
+    CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install llama-cpp-python
+    # Or with OpenBLAS acceleration
+    CMAKE_ARGS="-DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=OpenBLAS" pip install llama-cpp-python
+    # Or with CLBLast acceleration
+    CMAKE_ARGS="-DLLAMA_CLBLAST=on" pip install llama-cpp-python
+    # Or with AMD ROCm GPU acceleration (Linux only)
+    CMAKE_ARGS="-DLLAMA_HIPBLAS=on" pip install llama-cpp-python
+    # Or with Metal GPU acceleration for macOS systems only
+    CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
+
+    # In windows, to set the variables CMAKE_ARGS in PowerShell, follow this format; eg for NVidia CUDA:
+    $env:CMAKE_ARGS = "-DLLAMA_OPENBLAS=on"
+    pip install llama-cpp-python
+    ```
+
+    #### Simple llama-cpp-python example code
+
+    ```python
+    from llama_cpp import Llama
+
+    # Set gpu_layers to the number of layers to offload to GPU. Set to 0 if no GPU acceleration is available on your system.
+    llm = Llama(
+    model_path="./Phi-3-mini-128k-instruct.IQ3_M.gguf",  # Download the model file first
+    n_ctx=32768,  # The max sequence length to use - note that longer sequence lengths require much more resources
+    n_threads=8,            # The number of CPU threads to use, tailor to your system and the resulting performance
+    n_gpu_layers=35         # The number of layers to offload to GPU, if you have GPU acceleration available
+    )
+
+    # Simple inference example
+    output = llm(
+    "<s>[INST] {prompt} [/INST]", # Prompt
+    max_tokens=512,  # Generate up to 512 tokens
+    stop=["</s>"],   # Example stop token - not necessarily correct for this specific model! Please check before using.
+    echo=True        # Whether to echo the prompt
+    )
+
+    # Chat Completion API
+
+    llm = Llama(model_path="./Phi-3-mini-128k-instruct.IQ3_M.gguf", chat_format="llama-2")  # Set chat_format according to the model you are using
+    llm.create_chat_completion(
+        messages = [
+            {"role": "system", "content": "You are a story writing assistant."},
+            {
+                "role": "user",
+                "content": "Write a story about llamas."
+            }
+        ]
+    )
+    ```
+
+- **Option D** - Running with LangChain
+
+Here are guides on using llama-cpp-python and ctransformers with LangChain:
+
+* [LangChain + llama-cpp-python](https://python.langchain.com/docs/integrations/llms/llamacpp)
+* [LangChain + ctransformers](https://python.langchain.com/docs/integrations/providers/ctransformers)
