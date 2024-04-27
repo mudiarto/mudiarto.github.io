@@ -1,0 +1,27 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_stages: [ commit, push ]
+repos:
+  # pre-commit formatting hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0 # Replace by any tag/version:
+    hooks:
+      - id: trailing-whitespace
+      - id: check-case-conflict
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: ["--unsafe"]
+      - id: check-added-large-files
+        args: [ '--maxkb=1024' ]
+      - id: mixed-line-ending
+      - id: fix-encoding-pragma
+      - id: debug-statements
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      # - id: no-commit-to-branch # personal project - just do main directly for now
+  - repo: https://github.com/fastai/nbdev
+    rev: 2.3.13
+    hooks:
+      - id: nbdev_clean
+      # - id: nbdev_export - no library needed
