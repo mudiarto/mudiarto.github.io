@@ -1,4 +1,4 @@
-# llama.cpp Experiment
+# llama.cpp Experiment (wip)
 
 This is part of my effort to update my resume using LLM. I want to experiment with llama.cpp to see if I can use it to generate my resume in JSON format.
 
@@ -180,7 +180,7 @@ export CUDA_VISIBLE_DEVICES=GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b
 
 ```
 
-### Prerequisite - Use llama.cpp to create json file from a specific prompt
+### Experiment - Use llama.cpp to create json file from a specific prompt
 
 - Experiment with [Llama.cpp Grammar](https://github.com/ggerganov/llama.cpp?tab=readme-ov-file#constrained-output-with-grammars)
 - llama.cpp grammar documentation: <https://github.com/ggerganov/llama.cpp/tree/master/grammars>
@@ -207,3 +207,141 @@ An extremely detailed description of the 10 best ethnic dishes in json format on
 ```
 
 **Pretty Good!** - but after doing some reading, I realized that this work by basically validating the output of the model to follow certain grammar. We still need the prompt to be very specific to get the output we want. I think this is a good start, but I need to experiment more to get the output I want.
+
+### Experiment - try with json schema
+
+Json Resume schema reference: https://github.com/jsonresume/resume-schema
+
+```bash
+# download schema, save it as jsonresume.schema.json
+curl https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json > jsonresume.schema.json
+
+# using it also as example file for the prompt
+cp jsonresume.schema.json prompt_with_jsonresume.txt
+
+```
+
+Now add this text to the beginning & end prompt_with_jsonresume.txt
+```text
+Create a resume for Dr. Evil from Austin Power movie, in json format, using this json schema:
+
+...
+...
+the schema here
+...
+...
+
+Please ensure to output ONLY VALID JSON:
+
+
+
+```
+
+Now try with json schema
+
+```bash
+
+./main \
+  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \
+  --ctx-size 0 \
+  --temp 0.8 \
+  --repeat_penalty 1.1 \
+  --n-predict -1  \
+  --threads 4 \
+  --n-gpu-layers 2000000 \
+  --json-schema jsonresume.schema.json \
+  --file prompt_with_jsonresume.txt
+
+```
+unfortunately, I got this error:
+```text
+terminate called after throwing an instance of 'nlohmann::json_abi_v3_11_3::detail::parse_error'
+  what():  [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'j'
+```
+
+let's try without json schema parameter first:
+```bash
+./main \
+  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \
+  --ctx-size 0 \
+  --temp 0.8 \
+  --repeat_penalty 1.1 \
+  --n-predict -1  \
+  --threads 4 \
+  --n-gpu-layers 2000000 \
+  --file prompt_with_jsonresume.txt
+
+```
+** it works ! ** I think the original one just failed because output contain invalid character. I should try to play with the prompt more & maybe combine with grammar file as well
+
+```bash
+
+./main \
+  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \
+  --ctx-size 0 \
+  --temp 0.8 \
+  --repeat_penalty 1.1 \
+  --n-predict -1  \
+  --threads 4 \
+  --n-gpu-layers 2000000 \
+  --grammar-file grammars/json.gbnf \
+  --json-schema jsonresume.schema.json \
+  --file prompt_with_jsonresume.txt
+
+```
+
+Unfortunately, I still got that invalid character error even when I specified grammar-file. I should do more research
+
+```bash
+
+./main \
+  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \
+  --ctx-size 0 \
+  --temp 0.8 \
+  --repeat_penalty 1.1 \
+  --n-predict -1  \
+  --threads 4 \
+  --n-gpu-layers 2000000 \
+  --grammar-file grammars/json.gbnf \
+  --json-schema ./jsonresume.schema.json \
+  --file prompt_with_jsonresume.txt
+
+```
+
+**Oh** found the issue - it expects the actual schema, not file path. there is a trick in the llama.cpp/example/main/README.md for external schema
+
+- `--json-schema SCHEMA`: Specify a [JSON schema](https://json-schema.org/) to constrain model output to (e.g. `{}` for any JSON object, or `{"items": {"type": "string", "minLength": 10, "maxLength": 100}, "minItems": 10}` for a JSON array of strings with size constraints).
+  - If a schema uses external `$ref`s, you should use `--grammar "$( python examples/json_schema_to_grammar.py myschema.json )"` instead.
+
+```bash
+
+./main \
+  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \
+  --ctx-size 0 \
+  --temp 0.8 \
+  --repeat_penalty 1.1 \
+  --n-predict -1  \
+  --threads 4 \
+  --n-gpu-layers 2000000 \
+  --grammar-file grammars/json.gbnf \
+  --grammar "$( python examples/json_schema_to_grammar.py jsonresume.schema.json )" \
+  --file prompt_with_jsonresume.txt
+
+```
+
+**It kinda works!** - unfortunately the output is worse than before.
+
+```text
+{"$schema":"http://json-schema.org/draft-04/schema#","basics":{"name":"Dr. Evil","label":"","image":"","email":"","phone":"","url":"","summary":"","location":{"address":"","postalCode":"","city":"","countryCode":"","region":"""}," :{ }},"profiles":[] "]," :{ }},"work":[],"volunteer":[],"education":[{"institution":"","studyType":"","startDate": "1989-02-15","endDate": "1994-06-15","score":"","courses":[] "}]," :{ "}},
+  " :{} },"awards":{},"certificates":{},"publications":{},"skills":{},"languages":{},"interests":{},"references":{},"projects":{},"meta":{"canonical":"","version":"1.0.0","lastModified":""}} ]} <|eot_id|> [end of text]
+```
+
+Maybe it is because the schema is too complex. I should try with simpler schema
+
+
+### Ideas
+- try with simpler schemas, with multiple level of questions,
+  - e.g. first ask for name, address, phone numbers
+  - then ask for all companies they work for
+  - then for each company ask for the position, start date, end date, etc
+  - it going to be rather expensive tho
