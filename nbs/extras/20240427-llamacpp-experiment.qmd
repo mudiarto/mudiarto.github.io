@@ -124,7 +124,6 @@ huggingface-cli download FaradayDotDev/llama-3-8b-Instruct-GGUF llama-3-8b-Instr
 
 - **Note**: I just realized that I can download the model manually from hugging face website. This is probably a better way if you only need to download it once. But if you need to automate it, you can use the cli.
 
-#%%
 ### Prerequisite - experiment with llama.cpp
 
 ```bash
@@ -180,7 +179,6 @@ export CUDA_VISIBLE_DEVICES=GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b
 # it works !!
 
 ```
-#%%
 
 ### Prerequisite - Use llama.cpp to create json file from a specific prompt
 
@@ -200,9 +198,12 @@ export CUDA_VISIBLE_DEVICES=GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b
   --threads 4 \
   --n-gpu-layers 2000000 \
   --grammar-file grammars/json.gbnf \
-  -p "An extremely detailed description of the 10 best ethnic dishes in json format"
-
-
-
+  -p "An extremely detailed description of the 10 best ethnic dishes in json format only: "
 
 ```
+Output:
+```text
+An extremely detailed description of the 10 best ethnic dishes in json format only: {" dishes": [{"name": "Pad Thai", "description": "Stir-fried rice noodles with shrimp, tofu, and peanuts"}, {"name": "Chicken Tikka Masala", "description": "Marinated chicken cooked in a creamy tomato sauce"}, {"name": "Jamaican Jerk Chicken", "description": "Spicy jerk seasoning on grilled chicken with Caribbean flair"}, {"name": "Kung Pao Chicken", "description": "Stir-fried chicken with peanuts, vegetables, and chili peppers"}, {"name": "Fajitas", "description": "Sizzling beef or chicken strips cooked with onions and bell peppers"}, {"name": "Sushi", "description": "Raw fish wrapped in seaweed with soy sauce and wasabi"}, {"name": "Tacos al pastor", "description": "Marinated pork cooked on a rotisserie with pineapple and onion"}, {"name": "Currywurst", "description": "Grilled sausage sliced and smothered in spicy tomato-based curry sauce"}, {"name": "Feijoada", "description": "Hearty stew of beans, beef, and pork from Brazil"}, {"name": "Tagine", "description": "Slow-cooked lamb or chicken with dried fruits and spices"}]} <|eot_id|> [end of text]
+```
+
+**Pretty Good!** - but after doing some reading, I realized that this work by basically validating the output of the model to follow certain grammar. We still need the prompt to be very specific to get the output we want. I think this is a good start, but I need to experiment more to get the output I want.

@@ -16,6 +16,9 @@ _default:
 # preview current notebook
 preview:
   #!/usr/bin/env bash
+  # clean old files
+  rm -rf _proc
+  echo "Preview notebook in port 4000"
   nbdev_preview
 
 

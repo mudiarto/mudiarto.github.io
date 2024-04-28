@@ -2,8 +2,8 @@ project:
   output-dir: _docs
 
 website:
-  title: "Kusno Mudiarto's Blog"
+  title: "@mudiarto's notebooks"
   site-url: "https://mudiarto.github.io/mudiarto.github.io"
-  description: "Kusno Mudiarto's Blog"
+  description: "Kusno Mudiarto's Notebooks"
   repo-branch: main
   repo-url: "https://github.com/mudiarto/mudiarto.github.io"

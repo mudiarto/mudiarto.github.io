@@ -1,11 +1,11 @@
-# @mudiarto's Notebooks
+# @mudiarto's notebooks
 
 
 A place to keep my notes and experiment with what I learn. I hope it is helpful for you too.
 
 ## Notes
 
-- 20240427 - [Updating My Resume](notes/20240427_update_resume)
+- 20240427 - [Updating My Resume](notes/20240427-update-resume.html)
 
 ## Links
 
