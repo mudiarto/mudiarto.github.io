@@ -1,0 +1,18 @@
+# @mudiarto's Notebooks
+
+
+A place to keep my notes and experiment with what I learn. I hope it is helpful for you too.
+
+## Notes
+
+- 20240427 - [Updating My Resume](notes/20240427_update_resume)
+
+## Links
+
+- [GitHub/mudiarto](https://github.com/mudiarto)
+- [LinkedIn/mudiarto](https://www.linkedin.com/in/mudiarto/)
+- [Twitter/mudiarto](https://twitter.com/mudiarto)
+
+
+#### Credits
+* This page was created using [nbdev](https://nbdev.fast.ai/).

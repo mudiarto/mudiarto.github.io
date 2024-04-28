@@ -1,0 +1,11 @@
+---
+order: 1
+title: Notes
+listing:
+  fields: [title, description]
+  type: table
+  sort-ui: false
+  filter-ui: false
+---
+
+Collection of my notes

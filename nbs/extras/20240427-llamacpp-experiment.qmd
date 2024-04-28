@@ -1,0 +1,208 @@
+# llama.cpp Experiment
+
+This is part of my effort to update my resume using LLM. I want to experiment with llama.cpp to see if I can use it to generate my resume in JSON format.
+
+I was inspired by these 2 websites/articles:
+
+- JSON schema for resume: [JSON Resume](https://jsonresume.org/)
+- This article in Medium on [restraining LLM to JSON format](https://mychen76.medium.com/practical-techniques-to-constraint-llm-output-in-json-format-e3e72396c670)
+
+so based on that, I want to experiment if I can use llama.cpp to generate output in JSON format.
+
+the article I linked above has couple of alternative methods to restrain LLM to JSON format. I don't like the "Prompt Engineering" approach, since it seems so unreliable. After reading the article, I'd like to try the "Grammar"/"JSON Schema" approach.
+
+The scripts on that page requires [llama.cpp](https://github.com/ggerganov/llama.cpp) - which I currently don't have and don't know at all, so I will need to install it first.
+
+### Prerequisite - Install llama.cpp
+
+Steps:
+
+1. Clone the repo
+```bash
+# go to your project directory in your computer, clone the repo
+git clone git@github.com:ggerganov/llama.cpp.git
+```
+
+2. Build llama.cpp (using CUDA)
+```bash
+# build using make
+make
+
+# I have NVIDIA GPU, so I will build the CUDA version
+make LLAMA_CUDA=1
+# i got this error:
+# bin/sh: 1: nvcc: not found
+
+# I need to install nvidia-cuda-toolkit
+sudo apt install nvidia-cuda-toolkit
+
+# try to build again
+make LLAMA_CUDA=1
+# I got another error:
+# Makefile:657: *** I ERROR: For CUDA versions < 11.7 a target CUDA architecture must be explicitly provided
+# via environment variable CUDA_DOCKER_ARCH, e.g. by running "export CUDA_DOCKER_ARCH=compute_XX" on Unix-like
+# systems, where XX is the minimum compute capability that the code needs to run on.
+# A list with compute capabilities can be found here: https://developer.nvidia.com/cuda-gpus .  Stop.
+
+# I need to set the CUDA_DOCKER_ARCH
+# see the list here: https://developer.nvidia.com/cuda-gpus
+# and then try to build again - however, clean it first to ensure that the build include CUDA
+export CUDA_DOCKER_ARCH=compute_86
+make clean
+make LLAMA_CUDA=1
+
+# built successfully !
+```
+
+<script src="https://asciinema.org/a/za37O363oYVDkbKwLWcGMB0sS.js" id="asciicast-656691" async="true"></script>
+
+### Prerequisite - Install LLM Models
+
+
+- I need models to run with llama.cpp. I previously used [ollama](https://ollama.org) which makes downloading models very simple. Now I need to understand how to download the models manually.
+- I'm open to any models, I want to try with either llama3 models which seems very powerful, or phi3 which is more lightweight.
+- **Q**: it looks like llama.cpp works with gguf format - which looks different from ollama, which is like a blob file. How do I download it?
+    - **Note**: It  looks like I can download/find those models in [huggingface](https://huggingface.co/models) - but I need to understand how to download and convert it to gguf format.
+    - **A**: Found the instruction from PrunaAI (from down below)
+- **Q**: What model to start with?
+    - **A**: I want to start with phi3 model, since it seems smaller and hopefully faster to download and run. I want to use 128k because I want to have more context/tokens (i.e. my resume)
+- **Q**: I want to start with phi3 model, but microsoft doesn't have gguf format for phi-3-mini-128k-instruct: https://huggingface.co/microsoft/Phi-3-mini-128k-instruct
+    - **A**: I found it done by PrunaAI: https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed
+    - **NOTE**: Shoutout to [PrunaAI](https://www.pruna.ai/) - and https://huggingface.co/PrunaAI  - they make the model smaller and give very good instruction to noobs like me! very thankful for that!
+
+#### Download the model from hugging face - instructions credit to PrunaAI
+
+[Reference Instructions](/extras/how-to-download-and-run-models-from-huggingface.html)
+
+Steps/Rationale:
+
+* I'm using command line hugging face cli to download the model. I prefer cli so it can be automated later
+* See my notes below for the steps !!
+
+
+```bash
+# ensure that huggingface-cli is already installed
+# if not, instruction is here:  https://huggingface.co/docs/huggingface_hub/en/guides/cli
+# install hf_transfer: `pip3 install hf_transfer` to speed up download on fast internet connection
+
+# ensure you're logged in
+huggingface-cli login
+# insert token from hugging face, from: https://huggingface.co/settings/token
+
+# validate you're logged in
+huggingface-cli whoami
+
+# change to model directory first
+cd models/
+
+# download the model
+huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False
+# Unfortunately, I got this error:
+# Repository Not Found for url: https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed/resolve/main/Phi-3-mini-128k-instruct.IQ3_M.gguf.
+
+# I need to find the correct model name
+huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/blob/main/Phi-3-mini-128k-instruct.Q5_K_M.gguf  --local-dir . --local-dir-use-symlinks False
+# I got this error:
+# huggingface_hub.utils._validators.HFValidationError: Repo id must be in the form 'repo_name' or 'namespace/repo_name': 'PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/blob/main/Phi-3-mini-128k-instruct.Q5_K_M.gguf'. Use `repo_type` argument if needed.
+
+# third try
+huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/resolve/main/Phi-3-mini-128k-instruct.Q5_K_M.gguf  --local-dir . --local-dir-use-symlinks False
+# I got same error
+
+# and now I just realized that I used it incorrectly. The right way is probably this:
+huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False
+# and it works !!!!
+
+# download llama3 8b model as well, why not
+# downloading it from FradayDotDev
+huggingface-cli download FaradayDotDev/llama-3-8b-Instruct-GGUF llama-3-8b-Instruct.Q5_K_M.gguf  --local-dir . --local-dir-use-symlinks False
+
+# However, I just realized that you can just download it manually from hugging face website :( ...
+# in any case, it is good to know that you can download it using cli for automation purposes
+
+```
+
+- **Note**: I just realized that I can download the model manually from hugging face website. This is probably a better way if you only need to download it once. But if you need to automate it, you can use the cli.
+
+#%%
+### Prerequisite - experiment with llama.cpp
+
+```bash
+# I have the model now, let's experiment with llama.cpp
+
+# show helps
+./main -h | less
+# helps show interactive mode, looks interesting
+
+# first I tried with interactive mode
+./main -i
+# apparently I need to specify the model
+
+
+# I tried to use interactive mode with models, but it gave a long weird output
+./main -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf -i
+# long weird random output
+
+# I'm trying now with the example from the page I linked above
+./main -ngl 35 -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 -p "<s>[INST] {prompt\} [/INST]"
+# looks promising - it give some results
+
+# it looks like llama.cpp doesn't use CUDA - let me see if I can use it
+# according to llama.cpp, I can use CUDA by setting the environment variable CUDA_VISIBLE_DEVICES
+# and based on this: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars - I can get the value from nvidia-smi
+# we need to use nvidia-smi -L to list all gpus
+nvidia-smi -L
+
+# output is something like this:
+nvidia-smi -L
+# GPU 0: NVIDIA GeForce RTX 3090 (UUID: GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b)
+# export CUDA_VISIBLE_DEVICES=GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b
+
+
+# now try it again with instruction mode
+./main -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct "Who is the president of the US"
+# didn't work, just showing me the help file
+
+# try again without prompt
+export CUDA_VISIBLE_DEVICES=GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b
+./main -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct
+
+
+# apparently to use cuda, i'll need -ngl <some number> where llama will try to offload as many as possible
+# from: https://github.com/ggerganov/llama.cpp/blob/master/docs/token_generation_performance_tips.md
+./main -ngl 10000 -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct
+# now I see a different warning - maybe I didn't make llama.cpp cleanly before
+# warning: not compiled with GPU offload support
+# i'm doing `make clean` & `make LLAMA_CUDA=1` again
+
+# I'm trying again with new llama.cpp
+./main -ngl 10000 -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct
+# it works !!
+
+```
+#%%
+
+### Prerequisite - Use llama.cpp to create json file from a specific prompt
+
+- Experiment with [Llama.cpp Grammar](https://github.com/ggerganov/llama.cpp?tab=readme-ov-file#constrained-output-with-grammars)
+- llama.cpp grammar documentation: <https://github.com/ggerganov/llama.cpp/tree/master/grammars>
+    - [examples/main](https://github.com/ggerganov/llama.cpp/tree/master/examples/main)
+    - [examples/server](https://github.com/ggerganov/llama.cpp/tree/master/examples/server)
+
+```bash
+
+./main \
+  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \
+  --ctx-size 0 \
+  --temp 0.8 \
+  --repeat_penalty 1.1 \
+  --n-predict -1  \
+  --threads 4 \
+  --n-gpu-layers 2000000 \
+  --grammar-file grammars/json.gbnf \
+  -p "An extremely detailed description of the 10 best ethnic dishes in json format"
+
+
+
+
+```

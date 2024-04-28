@@ -1,0 +1,11 @@
+---
+order: 2
+title: Extras
+listing:
+  fields: [title, description]
+  type: table
+  sort-ui: false
+  filter-ui: false
+---
+
+Miscellaneous notes, experiments, and other things that I find interesting.

@@ -1,20 +1,52 @@
 project:
   type: website
+  preview:
+    port: 3000
+    browser: false
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
+    toc-depth: 4
 
 website:
   twitter-card: true
   open-graph: true
   repo-actions: [issue]
+  sidebar:
+    style: floating
+    contents:
+      - href: index.qmd
+        text: Home
+      - section: Notes
+        contents: notes/*
+      - section: Extras
+        contents: extras/*
+  favicon: assets/favicon.jpg
   navbar:
     background: primary
     search: true
-  sidebar:
-    style: floating
+    collapse-below: lg
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Notes"
+        href: notes/index.qmd
+      - text: "Extras"
+        href: extras/index.qmd
+      - text: "Help"
+        menu:
+          - text: "Report an Issue"
+            icon: bug
+            href: https://github.com/mudiarto/mudiarto.github.io/issues
 
-metadata-files: [nbdev.yml, sidebar.yml]
+    right:
+      - icon: github
+        href: "https://github.com/mudiarto"
+      - icon: twitter
+        href: https://twitter.com/mudiarto
+        aria-label: Fast.ai Twitter
+
+metadata-files: [nbdev.yml]

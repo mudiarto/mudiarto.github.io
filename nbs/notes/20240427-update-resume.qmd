@@ -1,0 +1,16 @@
+# Updating My Resume
+
+My resume is a bit outdated, [the last version (atm) was made in 2013](https://github.com/mudiarto/resume/tree/c263795bd5683e640a0a7d2f4572f74256e0ae40). I need to update it, and while I'm learning ML & LLM, I suppose it is a good way to experiment and using it to update my resume.
+
+I found couple resources/tools that I want to use for my resume:
+
+- JSON schema for resume: [JSON Resume](https://jsonresume.org/)
+- This article in Medium on [restraining LLM to JSON format](https://mychen76.medium.com/practical-techniques-to-constraint-llm-output-in-json-format-e3e72396c670)
+
+So the goal is to use LLM to generate my resume in JSON format based on JSON Resume schema.
+The input of the LLM will be somewhat unstructured data of projects i've done, the values I've created, and skills I have, experiences, etc. The output is hopefully a good resume that are interesting and relevant to the job I'm applying for (not that I'm applying for any job right now)
+
+
+### Steps:
+
+- [Install and experiment with llama.cpp](/extras/20240427-llamacpp-experiment.html)

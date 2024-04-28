@@ -1,6 +1,13 @@
 website:
   sidebar:
     contents:
-      - index.ipynb
-      - 20240427_update_resume.ipynb
-      - how-to-download-and-run-models-from-huggingface.qmd
+      - index.qmd
+      - section: extras
+        contents:
+          - extras/index.qmd
+          - extras/20240427-how-to-download-and-run-models-from-huggingface.qmd
+          - extras/20240427-llamacpp-experiment.qmd
+      - section: notes
+        contents:
+          - notes/index.qmd
+          - notes/20240427-update-resume.qmd
