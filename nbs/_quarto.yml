@@ -22,6 +22,8 @@ website:
         text: Home
       - section: Notes
         contents: notes/*
+      - section: Tools
+        contents: tools/*
       - section: Extras
         contents: extras/*
   favicon: assets/favicon.jpg
@@ -34,6 +36,8 @@ website:
         href: index.qmd
       - text: "Notes"
         href: notes/index.qmd
+      - text: "Tools"
+        href: tools/index.qmd
       - text: "Extras"
         href: extras/index.qmd
       - text: "Help"
@@ -45,8 +49,9 @@ website:
     right:
       - icon: github
         href: "https://github.com/mudiarto"
+        aria-label: Mudiarto at Github
       - icon: twitter
         href: https://twitter.com/mudiarto
-        aria-label: Fast.ai Twitter
+        aria-label: Mudiarto at Twitter
 
 metadata-files: [nbdev.yml]

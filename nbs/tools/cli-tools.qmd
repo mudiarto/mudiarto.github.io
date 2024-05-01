@@ -1,0 +1,37 @@
+# CLI Tools/Links (wip)
+
+List of the tools that I use, and the configurations in the dotfiles.
+
+
+
+## dotfiles
+
+I have a huge set of configurations on my private repo, built over the years, but it is not very organized.
+I want to cleanup and make it public so I can clone it easily when I work on a new terminal.
+The old config files are based on [stow](https://www.gnu.org/software/stow/stow.html),
+and I want to change it to use [chezmoi](https://www.chezmoi.io/)
+
+- [My dotfiles - wip](https://github.com/mudiarto/dotfiles)
+
+
+## tools that I use daily
+
+### shell
+
+- zsh
+- xonsh
+
+### version control
+
+- git
+- stgit
+
+### editor
+
+- nvim
+
+
+### communication
+
+- ssh
+- assh

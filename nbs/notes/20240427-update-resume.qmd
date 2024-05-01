@@ -1,4 +1,4 @@
-# Updating My Resume
+# Updating My Resume (wip)
 
 My resume is a bit outdated, [the last version (atm) was made in 2013](https://github.com/mudiarto/resume/tree/c263795bd5683e640a0a7d2f4572f74256e0ae40). I need to update it, and while I'm learning ML & LLM, I suppose it is a good way to experiment and using it to update my resume.
 
@@ -14,3 +14,4 @@ The input of the LLM will be somewhat unstructured data of projects i've done, t
 ### Steps:
 
 - [Install and experiment with llama.cpp](/extras/20240427-llamacpp-experiment.html)
+- TBD

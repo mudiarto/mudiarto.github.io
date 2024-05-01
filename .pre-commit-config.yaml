@@ -20,8 +20,8 @@ repos:
       - id: check-symlinks
       - id: destroyed-symlinks
       # - id: no-commit-to-branch # personal project - just do main directly for now
-  - repo: https://github.com/fastai/nbdev
-    rev: 2.3.13
-    hooks:
-      - id: nbdev_clean
-      # - id: nbdev_export - no library needed
+  # - repo: https://github.com/fastai/nbdev
+  #   rev: 2.3.13
+  #   hooks:
+  #    # - id: nbdev_clean - i'll keep the notebook output for now
+  #    # - id: nbdev_export - no library needed

@@ -3,7 +3,7 @@ project:
 
 website:
   title: "@mudiarto's notebooks"
-  site-url: "https://mudiarto.github.io/mudiarto.github.io"
+  site-url: "https://kusno.mudiarto.com"
   description: "Kusno Mudiarto's Notebooks"
   repo-branch: main
   repo-url: "https://github.com/mudiarto/mudiarto.github.io"

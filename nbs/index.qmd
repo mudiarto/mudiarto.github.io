@@ -1,6 +1,5 @@
 # @mudiarto's notebooks
 
-
 A place to keep my notes and experiment with what I learn. I hope it is helpful for you too.
 
 ## Notes
@@ -14,5 +13,9 @@ A place to keep my notes and experiment with what I learn. I hope it is helpful 
 - [Twitter/mudiarto](https://twitter.com/mudiarto)
 
 
+##### License
+- The license for my notebooks/writings is [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- The license for original codes/scripts created by me in this notebook is [MIT](https://opensource.org/license/mit)
+
 #### Credits
-* This page was created using [nbdev](https://nbdev.fast.ai/).
+- Notebooks structure and pages are created using [nbdev](https://nbdev.fast.ai/) and [quarto](https://quarto.org/).

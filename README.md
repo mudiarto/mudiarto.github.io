@@ -12,6 +12,8 @@ helpful for you too.
 - [LinkedIn/mudiarto](https://www.linkedin.com/in/mudiarto/)
 - [Twitter/mudiarto](https://twitter.com/mudiarto)
 
-#### Credits
+#### License
+- The license for my notebooks/writing is [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
-- This page was created using [nbdev](https://nbdev.fast.ai/).
+#### Credits
+- Notebooks structure and pages are created using [nbdev](https://nbdev.fast.ai/) and [quarto](https://quarto.org/).

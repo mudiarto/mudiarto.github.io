@@ -4,10 +4,16 @@ website:
       - index.qmd
       - section: extras
         contents:
-          - extras/index.qmd
           - extras/20240427-how-to-download-and-run-models-from-huggingface.qmd
           - extras/20240427-llamacpp-experiment.qmd
+          - extras/20240430-mlflow-experiment.qmd
+        href: extras/index.qmd
       - section: notes
         contents:
-          - notes/index.qmd
           - notes/20240427-update-resume.qmd
+        href: notes/index.qmd
+      - section: tools
+        contents:
+          - tools/cli-tools.qmd
+          - tools/mlai-tools.qmd
+        href: tools/index.qmd

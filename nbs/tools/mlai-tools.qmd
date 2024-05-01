@@ -1,0 +1,12 @@
+# ML/AI Tools/Links
+
+Links and my comments on tools that I found interesting around the web
+
+## Refs:
+- [Mudiarto ML/AI stars](https://github.com/stars/mudiarto/lists/ml-ai) - My collection of ML/AI stars as I stumbled upon them
+
+## Tools I use
+- TBD
+
+## Tools that seems useful
+- TBD

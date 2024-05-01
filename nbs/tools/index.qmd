@@ -1,0 +1,12 @@
+---
+order: 2
+title: Tools
+listing:
+  fields: [title, description]
+  type: table
+  sort-ui: false
+  filter-ui: false
+---
+# My semi organized list of tools
+
+["If the only tool you have is a hammer, it is tempting to treat everything as if it were a nail"](https://en.wikipedia.org/wiki/Law_of_the_instrument)

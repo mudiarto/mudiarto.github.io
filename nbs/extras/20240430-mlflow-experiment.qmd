@@ -1,0 +1,42 @@
+# mlflow experiment (wip)
+
+### Goals
+
+- I want to keep track of my experiments, whether LLM experiments, or other experiments as well.
+- I want to be able to compare the result of different prompts, different scenario, different models, etc.
+- I'd like to be able to do experiment with [Langchain](https://python.langchain.com) as well.
+
+### Tools/Architecture
+
+- [MLFlow](https://mlflow.org/) for keeping track of the experiments
+- [Langchain](https://python.langchain.com)
+- some kind of inference server, probably [llama.cpp server](https://github.com/ggerganov/llama.cpp/tree/master/examples/server),
+  or others
+- [MLFlow + Langchain)(https://mlflow.org/docs/latest/llms/langchain/index.html)
+
+
+I want those tools to be simple to setup in my local, and can be inspected in the future as well, so I'll try to
+make it run with docker and store the result locally & version-controlled so it can be inspected by others.
+
+I'd need couple other tools to do it:
+
+- git
+- git-lfs (to store sqlite db cleanly)
+- ~~docker & docker compose~~ - I originally wants to run it in docker, but it turned out running it natively is easier
+(w.r.t. installation & file permission issue)
+- ~~[minio](https://min.io/) - to simulate S3, but store it locally~~ - I thought I need minio to simulate s3, but it
+turned out mlflow can use local storage directly, and it makes everything easy
+
+
+## Setup
+
+### MLFlow setup
+
+- mlflow is installed locally - using `pip install mlflow`. see [requirements.txt](https://github.com/mudiarto/ml-notebooks/blob/dev/requirements.txt)
+  - I tried to install using conda and it worked, but somehow
+I got weird error: ["You are very likely running the MLflow server using a source installation of the Python MLflow
+package"](https://github.com/mlflow/mlflow/issues/3631) - so I just uninstall it and use pip installation
+  - See the environment variables I use to run here: 
+https://github.com/mudiarto/ml-notebooks/blob/43838aacb986f090de5f1b5a3395b5fec8b07602/justfile#L70-L75- 
+
+- 
