@@ -11,6 +11,7 @@ website:
       - section: notes
         contents:
           - notes/20240427-update-resume.qmd
+          - notes/20240505-dotfiles.qmd
         href: notes/index.qmd
       - section: tools
         contents:

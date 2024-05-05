@@ -1,0 +1,58 @@
+# My dotfiles story (wip)
+
+**link to my dotfiles: <https://github.com/mudiarto/dotfiles>**
+
+I love to tinker with my environment, since I love playing with shiny tools,
+and hopefully to increase my productivity.
+
+I have a growing collections of cli tools, scripts, and configurations that I
+have been building over the years, but they are not very organized. They are
+also in private repository so it is a bit hard to pull when I work on new 
+environment.
+
+I want to make it more organized, and make it public so I can use it across
+different machines. I want to make my computer setup like cattle, not pets.
+
+This is [my current dotfiles repository](https://github.com/mudiarto/dotfiles) 
+in github. I will try to document the process/thoughts of how I setup my
+dotfiles here while I'm rebuilding it from scratch.
+
+## Tools used
+
+### [chezmoi](https://www.chezmoi.io/)
+
+I used to manage my dotfiles using [stow](https://www.gnu.org/software/stow/),
+but it is a bit hard to manage with different machines and OS. It seems that
+chezmoi is trying to solve this problem. I will give it a try.
+
+### [xonsh](https://xon.sh/) 
+
+I used to use zsh, but I never comfortable doing scripting in it. I want to 
+experiment with xonsh as my shell, since it is python based, and seems to be
+more powerful & flexible.
+
+The interesting things about xonsh is that it has 2 modes, python mode and 
+shell mode. My initial confusion is to differentiate which mode it is in,
+and also the string manipulation between python and shell mode.
+
+Once I got the hang of it, I really enjoy using it.
+
+Couple notes/issues that I encountered:
+
+- Install it using mamba to have a stable installation that doesn't depend on OS
+  - see: <https://github.com/anki-code/xonsh-install?tab=readme-ov-file#mamba-install-xonsh>
+- [Mutagen sync issue]()
+  because of anything printed during startup in xonsh will be returned to ssh, which cause this issue:
+  "mutagen Error: server handshake failed: unable to receive client magic number: EOF"
+  - similar to [this issue](https://github.com/mutagen-io/mutagen/issues/333)
+  - [My patchy solution is to log it with debug level](https://github.com/mudiarto/dotfiles/blob/f91660e058014983746425ed0170dba1a5056e03/dot_config/xonsh/rc.xsh#L11C1-L16C88)
+- VI mode give this error when I cut something in command line:
+  `Pyperclip could not find a copy/paste mechanism for your system.`
+  - the reason it happens is because I run xonsh remotely via ssh, and there is no X11 window to use as clipboard.
+  - I tried couple things (including installing Xquartz in my mac) which didn't solve the issue
+  - [My solution is to disable the clipboard](https://github.com/mudiarto/dotfiles/blob/f91660e058014983746425ed0170dba1a5056e03/dot_xonshrc#L29-L41)
+
+
+
+
+
