@@ -52,7 +52,39 @@ Couple notes/issues that I encountered:
   - I tried couple things (including installing Xquartz in my mac) which didn't solve the issue
   - [My solution is to disable the clipboard](https://github.com/mudiarto/dotfiles/blob/f91660e058014983746425ed0170dba1a5056e03/dot_xonshrc#L29-L41)
 
+### [mise-en-place](https://mise.jdx.dev/) - replacement for asdf
 
+I have been using [asdf](https://asdf-vm.com/) for a long time and so far I like it, although sometimes the shims
+is a bit annoying, and can be quite confusing.
+
+I found this new tools called mise-en-place, and I want to give it a try. If not,
+I can always go back to asdf.
+
+Since I already have cargo installed (for couple other things), I'll just use 
+[cargo installation instruction](https://mise.jdx.dev/getting-started.html#cargo).
+
+I'm using cargo binstall method, since this is the first time I heard about it,
+and I'm curious as well.
+
+```text
+cargo install cargo-binstall
+cargo binstall mise
+```
+
+also since I use xonsh, i'm following [its instruction for xonsh](https://mise.jdx.dev/getting-started.html#xonsh).
+However, when I run it, I got this error: `name 'subprocess' is not defined` - which is fixed by adding
+`import subprocess` in the script. I also need to change the mise location to `~/.cargo/bin/mise` since I use 
+cargo to install it.
+
+However it didn't work! - I got this weird error: `No such file or directory: 'command'` when I run mise.
+
+I then tried to look at the activation script manually, copy pasted it to my mise.xsh and look at it manually.
+It turned out for some reason the script contain something like `subprocess.run(['command', 'mise', *args]...)` and apparently it failed on the first 'command'.
+I edited the script, removed the 'command' and it seems to work so far.
+
+I also added some check to ensure mise is installed, and failed silently if not.
+
+final script that I use is [here](https://github.com/mudiarto/dotfiles/blob/35fa580162f830e38ed86de021c21d56650e6b44/dot_config/xonsh/rc.d/802-mise.xsh)
 
 
 
