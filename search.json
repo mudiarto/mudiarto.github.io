@@ -1,0 +1,305 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "@mudiarto’s notebooks",
+    "section": "",
+    "text": "A place to keep my notes and experiment with what I learn. I hope it is helpful for you too.\n\n\n\n20240427 - Updating My Resume\n\n\n\n\n\nGitHub/mudiarto\nLinkedIn/mudiarto\nTwitter/mudiarto\n\n\n\n\nThe license for my notebooks/writings is CC BY-SA 4.0\nThe license for original codes/scripts created by me in this notebook is MIT\n\n\n\n\n\nNotebooks structure and pages are created using nbdev and quarto.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#notes",
+    "href": "index.html#notes",
+    "title": "@mudiarto’s notebooks",
+    "section": "",
+    "text": "20240427 - Updating My Resume",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#links",
+    "href": "index.html#links",
+    "title": "@mudiarto’s notebooks",
+    "section": "",
+    "text": "GitHub/mudiarto\nLinkedIn/mudiarto\nTwitter/mudiarto\n\n\n\n\nThe license for my notebooks/writings is CC BY-SA 4.0\nThe license for original codes/scripts created by me in this notebook is MIT\n\n\n\n\n\nNotebooks structure and pages are created using nbdev and quarto.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "tools/cli-tools.html",
+    "href": "tools/cli-tools.html",
+    "title": "CLI Tools/Links (wip)",
+    "section": "",
+    "text": "List of the tools that I use, and the configurations in the dotfiles.\n\n\nI have a huge set of configurations on my private repo, built over the years, but it is not very organized. I want to cleanup and make it public so I can clone it easily when I work on a new terminal. The old config files are based on stow, and I want to change it to use chezmoi\n\nMy dotfiles - wip\n\n\n\n\n\n\n\nzsh\nxonsh\n\n\n\n\n\ngit\nstgit\n\n\n\n\n\nnvim\n\n\n\n\n\nssh\nassh",
+    "crumbs": [
+      "Home",
+      "Tools",
+      "CLI Tools/Links (wip)"
+    ]
+  },
+  {
+    "objectID": "tools/cli-tools.html#dotfiles",
+    "href": "tools/cli-tools.html#dotfiles",
+    "title": "CLI Tools/Links (wip)",
+    "section": "",
+    "text": "I have a huge set of configurations on my private repo, built over the years, but it is not very organized. I want to cleanup and make it public so I can clone it easily when I work on a new terminal. The old config files are based on stow, and I want to change it to use chezmoi\n\nMy dotfiles - wip",
+    "crumbs": [
+      "Home",
+      "Tools",
+      "CLI Tools/Links (wip)"
+    ]
+  },
+  {
+    "objectID": "tools/cli-tools.html#tools-that-i-use-daily",
+    "href": "tools/cli-tools.html#tools-that-i-use-daily",
+    "title": "CLI Tools/Links (wip)",
+    "section": "",
+    "text": "zsh\nxonsh\n\n\n\n\n\ngit\nstgit\n\n\n\n\n\nnvim\n\n\n\n\n\nssh\nassh",
+    "crumbs": [
+      "Home",
+      "Tools",
+      "CLI Tools/Links (wip)"
+    ]
+  },
+  {
+    "objectID": "notes/20240505-dotfiles.html",
+    "href": "notes/20240505-dotfiles.html",
+    "title": "My dotfiles story (wip)",
+    "section": "",
+    "text": "link to my dotfiles: https://github.com/mudiarto/dotfiles\nI love to tinker with my environment, since I love playing with shiny tools, and hopefully to increase my productivity.\nI have a growing collections of cli tools, scripts, and configurations that I have been building over the years, but they are not very organized. They are also in private repository so it is a bit hard to pull when I work on new environment.\nI want to make it more organized, and make it public so I can use it across different machines. I want to make my computer setup like cattle, not pets.\nThis is my current dotfiles repository in github. I will try to document the process/thoughts of how I setup my dotfiles here while I’m rebuilding it from scratch.\n\n\n\n\nI used to manage my dotfiles using stow, but it is a bit hard to manage with different machines and OS. It seems that chezmoi is trying to solve this problem. I will give it a try.\n\n\n\nI used to use zsh, but I never comfortable doing scripting in it. I want to experiment with xonsh as my shell, since it is python based, and seems to be more powerful & flexible.\nThe interesting things about xonsh is that it has 2 modes, python mode and shell mode. My initial confusion is to differentiate which mode it is in, and also the string manipulation between python and shell mode.\nOnce I got the hang of it, I really enjoy using it.\nCouple notes/issues that I encountered:\n\nInstall it using mamba to have a stable installation that doesn’t depend on OS\n\nsee: https://github.com/anki-code/xonsh-install?tab=readme-ov-file#mamba-install-xonsh\n\nMutagen sync issue because of anything printed during startup in xonsh will be returned to ssh, which cause this issue: “mutagen Error: server handshake failed: unable to receive client magic number: EOF”\n\nsimilar to this issue\nMy patchy solution is to log it with debug level\n\nVI mode give this error when I cut something in command line: Pyperclip could not find a copy/paste mechanism for your system.\n\nthe reason it happens is because I run xonsh remotely via ssh, and there is no X11 window to use as clipboard.\nI tried couple things (including installing Xquartz in my mac) which didn’t solve the issue\nMy solution is to disable the clipboard\n\n\n\n\n\nI have been using asdf for a long time and so far I like it, although sometimes the shims is a bit annoying, and can be quite confusing.\nI found this new tools called mise-en-place, and I want to give it a try. If not, I can always go back to asdf.\nSince I already have cargo installed (for couple other things), I’ll just use cargo installation instruction.\nI’m using cargo binstall method, since this is the first time I heard about it, and I’m curious as well.\ncargo install cargo-binstall\ncargo binstall mise\nalso since I use xonsh, i’m following its instruction for xonsh. However, when I run it, I got this error: name 'subprocess' is not defined - which is fixed by adding import subprocess in the script. I also need to change the mise location to ~/.cargo/bin/mise since I use cargo to install it.\nHowever it didn’t work! - I got this weird error: No such file or directory: 'command' when I run mise.\nI then tried to look at the activation script manually, copy pasted it to my mise.xsh and look at it manually. It turned out for some reason the script contain something like subprocess.run(['command', 'mise', *args]...) and apparently it failed on the first ‘command’. I edited the script, removed the ‘command’ and it seems to work so far.\nI also added some check to ensure mise is installed, and failed silently if not.\nfinal script that I use is here",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "My dotfiles story (wip)"
+    ]
+  },
+  {
+    "objectID": "notes/20240505-dotfiles.html#tools-used",
+    "href": "notes/20240505-dotfiles.html#tools-used",
+    "title": "My dotfiles story (wip)",
+    "section": "",
+    "text": "I used to manage my dotfiles using stow, but it is a bit hard to manage with different machines and OS. It seems that chezmoi is trying to solve this problem. I will give it a try.\n\n\n\nI used to use zsh, but I never comfortable doing scripting in it. I want to experiment with xonsh as my shell, since it is python based, and seems to be more powerful & flexible.\nThe interesting things about xonsh is that it has 2 modes, python mode and shell mode. My initial confusion is to differentiate which mode it is in, and also the string manipulation between python and shell mode.\nOnce I got the hang of it, I really enjoy using it.\nCouple notes/issues that I encountered:\n\nInstall it using mamba to have a stable installation that doesn’t depend on OS\n\nsee: https://github.com/anki-code/xonsh-install?tab=readme-ov-file#mamba-install-xonsh\n\nMutagen sync issue because of anything printed during startup in xonsh will be returned to ssh, which cause this issue: “mutagen Error: server handshake failed: unable to receive client magic number: EOF”\n\nsimilar to this issue\nMy patchy solution is to log it with debug level\n\nVI mode give this error when I cut something in command line: Pyperclip could not find a copy/paste mechanism for your system.\n\nthe reason it happens is because I run xonsh remotely via ssh, and there is no X11 window to use as clipboard.\nI tried couple things (including installing Xquartz in my mac) which didn’t solve the issue\nMy solution is to disable the clipboard\n\n\n\n\n\nI have been using asdf for a long time and so far I like it, although sometimes the shims is a bit annoying, and can be quite confusing.\nI found this new tools called mise-en-place, and I want to give it a try. If not, I can always go back to asdf.\nSince I already have cargo installed (for couple other things), I’ll just use cargo installation instruction.\nI’m using cargo binstall method, since this is the first time I heard about it, and I’m curious as well.\ncargo install cargo-binstall\ncargo binstall mise\nalso since I use xonsh, i’m following its instruction for xonsh. However, when I run it, I got this error: name 'subprocess' is not defined - which is fixed by adding import subprocess in the script. I also need to change the mise location to ~/.cargo/bin/mise since I use cargo to install it.\nHowever it didn’t work! - I got this weird error: No such file or directory: 'command' when I run mise.\nI then tried to look at the activation script manually, copy pasted it to my mise.xsh and look at it manually. It turned out for some reason the script contain something like subprocess.run(['command', 'mise', *args]...) and apparently it failed on the first ‘command’. I edited the script, removed the ‘command’ and it seems to work so far.\nI also added some check to ensure mise is installed, and failed silently if not.\nfinal script that I use is here",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "My dotfiles story (wip)"
+    ]
+  },
+  {
+    "objectID": "notes/20240510-links.html",
+    "href": "notes/20240510-links.html",
+    "title": "Links and Refs",
+    "section": "",
+    "text": "My unorganized list of links\n\n\n\n\n\n\n\nSebastian Raschka - good book to learn AI from scratch\nDive into Deep Learning - learn ai from the concepts, the context, and the code. Academic.\nFast AI - Practical deep learning for coders, with less math. Very practical\nNeural Network & Deep Learning - Free online book\n\n\n\n\n\nAI Canon - collections of links to learn AI\nIlya Sutskever to John Carmack list of links - Ilya Sutskever “If you really learn all of these, you’ll know 90% of what matters today” (2024) - very technical\n\n\n\n\n\nGoogle’s Machine Learning Glossary - in case I forget something\nAI Wiki - A repository of machine learning, data science, and artificial intelligence (AI) terms for individuals and businesses",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Links and Refs"
+    ]
+  },
+  {
+    "objectID": "notes/20240510-links.html#ai",
+    "href": "notes/20240510-links.html#ai",
+    "title": "Links and Refs",
+    "section": "",
+    "text": "Sebastian Raschka - good book to learn AI from scratch\nDive into Deep Learning - learn ai from the concepts, the context, and the code. Academic.\nFast AI - Practical deep learning for coders, with less math. Very practical\nNeural Network & Deep Learning - Free online book\n\n\n\n\n\nAI Canon - collections of links to learn AI\nIlya Sutskever to John Carmack list of links - Ilya Sutskever “If you really learn all of these, you’ll know 90% of what matters today” (2024) - very technical\n\n\n\n\n\nGoogle’s Machine Learning Glossary - in case I forget something\nAI Wiki - A repository of machine learning, data science, and artificial intelligence (AI) terms for individuals and businesses",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Links and Refs"
+    ]
+  },
+  {
+    "objectID": "notes/20240427-update-resume.html",
+    "href": "notes/20240427-update-resume.html",
+    "title": "Updating My Resume (wip)",
+    "section": "",
+    "text": "Updating My Resume (wip)\nMy resume is a bit outdated, the last version (atm) was made in 2013. I need to update it, and while I’m learning ML & LLM, I suppose it is a good way to experiment and using it to update my resume.\nI found couple resources/tools that I want to use for my resume:\n\nJSON schema for resume: JSON Resume\nThis article in Medium on restraining LLM to JSON format\n\nSo the goal is to use LLM to generate my resume in JSON format based on JSON Resume schema. The input of the LLM will be somewhat unstructured data of projects i’ve done, the values I’ve created, and skills I have, experiences, etc. The output is hopefully a good resume that are interesting and relevant to the job I’m applying for (not that I’m applying for any job right now)\n\nSteps:\n\nInstall and experiment with llama.cpp\nTBD",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Updating My Resume (wip)"
+    ]
+  },
+  {
+    "objectID": "extras/index.html",
+    "href": "extras/index.html",
+    "title": "Extras",
+    "section": "",
+    "text": "Miscellaneous notes, experiments, and other things that I find interesting.\n\n\n\n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nHow to download & run GGUF models\n\n\n\n\n\n\n\nllama.cpp Experiment (wip)\n\n\n\n\n\n\n\nmlflow experiment (wip)\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Extras"
+    ]
+  },
+  {
+    "objectID": "extras/20240427-llamacpp-experiment.html",
+    "href": "extras/20240427-llamacpp-experiment.html",
+    "title": "llama.cpp Experiment (wip)",
+    "section": "",
+    "text": "llama.cpp Experiment (wip)\nThis is part of my effort to update my resume using LLM. I want to experiment with llama.cpp to see if I can use it to generate my resume in JSON format.\nI was inspired by these 2 websites/articles:\n\nJSON schema for resume: JSON Resume\nThis article in Medium on restraining LLM to JSON format\n\nso based on that, I want to experiment if I can use llama.cpp to generate output in JSON format.\nthe article I linked above has couple of alternative methods to restrain LLM to JSON format. I don’t like the “Prompt Engineering” approach, since it seems so unreliable. After reading the article, I’d like to try the “Grammar”/“JSON Schema” approach.\nThe scripts on that page requires llama.cpp - which I currently don’t have and don’t know at all, so I will need to install it first.\n\nPrerequisite - Install llama.cpp\nSteps:\n\nClone the repo\n\n# go to your project directory in your computer, clone the repo\ngit clone git@github.com:ggerganov/llama.cpp.git\n\nBuild llama.cpp (using CUDA)\n\n# build using make\nmake\n\n# I have NVIDIA GPU, so I will build the CUDA version\nmake LLAMA_CUDA=1\n# i got this error:\n# bin/sh: 1: nvcc: not found\n\n# I need to install nvidia-cuda-toolkit\nsudo apt install nvidia-cuda-toolkit\n\n# try to build again\nmake LLAMA_CUDA=1\n# I got another error:\n# Makefile:657: *** I ERROR: For CUDA versions &lt; 11.7 a target CUDA architecture must be explicitly provided\n# via environment variable CUDA_DOCKER_ARCH, e.g. by running \"export CUDA_DOCKER_ARCH=compute_XX\" on Unix-like\n# systems, where XX is the minimum compute capability that the code needs to run on.\n# A list with compute capabilities can be found here: https://developer.nvidia.com/cuda-gpus .  Stop.\n\n# I need to set the CUDA_DOCKER_ARCH\n# see the list here: https://developer.nvidia.com/cuda-gpus\n# and then try to build again - however, clean it first to ensure that the build include CUDA\nexport CUDA_DOCKER_ARCH=compute_86\nmake clean\nmake LLAMA_CUDA=1\n\n# built successfully !\n\n\n\nPrerequisite - Install LLM Models\n\nI need models to run with llama.cpp. I previously used ollama which makes downloading models very simple. Now I need to understand how to download the models manually.\nI’m open to any models, I want to try with either llama3 models which seems very powerful, or phi3 which is more lightweight.\nQ: it looks like llama.cpp works with gguf format - which looks different from ollama, which is like a blob file. How do I download it?\n\nNote: It looks like I can download/find those models in huggingface - but I need to understand how to download and convert it to gguf format.\nA: Found the instruction from PrunaAI (from down below)\n\nQ: What model to start with?\n\nA: I want to start with phi3 model, since it seems smaller and hopefully faster to download and run. I want to use 128k because I want to have more context/tokens (i.e. my resume)\n\nQ: I want to start with phi3 model, but microsoft doesn’t have gguf format for phi-3-mini-128k-instruct: https://huggingface.co/microsoft/Phi-3-mini-128k-instruct\n\nA: I found it done by PrunaAI: https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed\nNOTE: Shoutout to PrunaAI - and https://huggingface.co/PrunaAI - they make the model smaller and give very good instruction to noobs like me! very thankful for that!\n\n\n\nDownload the model from hugging face - instructions credit to PrunaAI\nReference Instructions\nSteps/Rationale:\n\nI’m using command line hugging face cli to download the model. I prefer cli so it can be automated later\nSee my notes below for the steps !!\n\n# ensure that huggingface-cli is already installed\n# if not, instruction is here:  https://huggingface.co/docs/huggingface_hub/en/guides/cli\n# install hf_transfer: `pip3 install hf_transfer` to speed up download on fast internet connection\n\n# ensure you're logged in\nhuggingface-cli login\n# insert token from hugging face, from: https://huggingface.co/settings/token\n\n# validate you're logged in\nhuggingface-cli whoami\n\n# change to model directory first\ncd models/\n\n# download the model\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False\n# Unfortunately, I got this error:\n# Repository Not Found for url: https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed/resolve/main/Phi-3-mini-128k-instruct.IQ3_M.gguf.\n\n# I need to find the correct model name\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/blob/main/Phi-3-mini-128k-instruct.Q5_K_M.gguf  --local-dir . --local-dir-use-symlinks False\n# I got this error:\n# huggingface_hub.utils._validators.HFValidationError: Repo id must be in the form 'repo_name' or 'namespace/repo_name': 'PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/blob/main/Phi-3-mini-128k-instruct.Q5_K_M.gguf'. Use `repo_type` argument if needed.\n\n# third try\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/resolve/main/Phi-3-mini-128k-instruct.Q5_K_M.gguf  --local-dir . --local-dir-use-symlinks False\n# I got same error\n\n# and now I just realized that I used it incorrectly. The right way is probably this:\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False\n# and it works !!!!\n\n# download llama3 8b model as well, why not\n# downloading it from FradayDotDev\nhuggingface-cli download FaradayDotDev/llama-3-8b-Instruct-GGUF llama-3-8b-Instruct.Q5_K_M.gguf  --local-dir . --local-dir-use-symlinks False\n\n# However, I just realized that you can just download it manually from hugging face website :( ...\n# in any case, it is good to know that you can download it using cli for automation purposes\n\nNote: I just realized that I can download the model manually from hugging face website. This is probably a better way if you only need to download it once. But if you need to automate it, you can use the cli.\n\n\n\n\nPrerequisite - experiment with llama.cpp\n# I have the model now, let's experiment with llama.cpp\n\n# show helps\n./main -h | less\n# helps show interactive mode, looks interesting\n\n# first I tried with interactive mode\n./main -i\n# apparently I need to specify the model\n\n\n# I tried to use interactive mode with models, but it gave a long weird output\n./main -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf -i\n# long weird random output\n\n# I'm trying now with the example from the page I linked above\n./main -ngl 35 -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 -p \"&lt;s&gt;[INST] {prompt\\} [/INST]\"\n# looks promising - it give some results\n\n# it looks like llama.cpp doesn't use CUDA - let me see if I can use it\n# according to llama.cpp, I can use CUDA by setting the environment variable CUDA_VISIBLE_DEVICES\n# and based on this: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars - I can get the value from nvidia-smi\n# we need to use nvidia-smi -L to list all gpus\nnvidia-smi -L\n\n# output is something like this:\nnvidia-smi -L\n# GPU 0: NVIDIA GeForce RTX 3090 (UUID: GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b)\n# export CUDA_VISIBLE_DEVICES=GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b\n\n\n# now try it again with instruction mode\n./main -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct \"Who is the president of the US\"\n# didn't work, just showing me the help file\n\n# try again without prompt\nexport CUDA_VISIBLE_DEVICES=GPU-1f000d41-bbba-2144-c214-e4a4fac78d5b\n./main -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct\n\n\n# apparently to use cuda, i'll need -ngl &lt;some number&gt; where llama will try to offload as many as possible\n# from: https://github.com/ggerganov/llama.cpp/blob/master/docs/token_generation_performance_tips.md\n./main -ngl 10000 -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct\n# now I see a different warning - maybe I didn't make llama.cpp cleanly before\n# warning: not compiled with GPU offload support\n# i'm doing `make clean` & `make LLAMA_CUDA=1` again\n\n# I'm trying again with new llama.cpp\n./main -ngl 10000 -m models/Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 --instruct\n# it works !!\n\n\nExperiment - Use llama.cpp to create json file from a specific prompt\n\nExperiment with Llama.cpp Grammar\nllama.cpp grammar documentation: https://github.com/ggerganov/llama.cpp/tree/master/grammars\n\nexamples/main\nexamples/server\n\n\n\n./main \\\n  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \\\n  --ctx-size 0 \\\n  --temp 0.8 \\\n  --repeat_penalty 1.1 \\\n  --n-predict -1  \\\n  --threads 4 \\\n  --n-gpu-layers 2000000 \\\n  --grammar-file grammars/json.gbnf \\\n  -p \"An extremely detailed description of the 10 best ethnic dishes in json format only: \"\nOutput:\nAn extremely detailed description of the 10 best ethnic dishes in json format only: {\" dishes\": [{\"name\": \"Pad Thai\", \"description\": \"Stir-fried rice noodles with shrimp, tofu, and peanuts\"}, {\"name\": \"Chicken Tikka Masala\", \"description\": \"Marinated chicken cooked in a creamy tomato sauce\"}, {\"name\": \"Jamaican Jerk Chicken\", \"description\": \"Spicy jerk seasoning on grilled chicken with Caribbean flair\"}, {\"name\": \"Kung Pao Chicken\", \"description\": \"Stir-fried chicken with peanuts, vegetables, and chili peppers\"}, {\"name\": \"Fajitas\", \"description\": \"Sizzling beef or chicken strips cooked with onions and bell peppers\"}, {\"name\": \"Sushi\", \"description\": \"Raw fish wrapped in seaweed with soy sauce and wasabi\"}, {\"name\": \"Tacos al pastor\", \"description\": \"Marinated pork cooked on a rotisserie with pineapple and onion\"}, {\"name\": \"Currywurst\", \"description\": \"Grilled sausage sliced and smothered in spicy tomato-based curry sauce\"}, {\"name\": \"Feijoada\", \"description\": \"Hearty stew of beans, beef, and pork from Brazil\"}, {\"name\": \"Tagine\", \"description\": \"Slow-cooked lamb or chicken with dried fruits and spices\"}]} &lt;|eot_id|&gt; [end of text]\nPretty Good! - but after doing some reading, I realized that this work by basically validating the output of the model to follow certain grammar. We still need the prompt to be very specific to get the output we want. I think this is a good start, but I need to experiment more to get the output I want.\n\n\nExperiment - try with json schema\nJson Resume schema reference: https://github.com/jsonresume/resume-schema\n# download schema, save it as jsonresume.schema.json\ncurl https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json &gt; jsonresume.schema.json\n\n# using it also as example file for the prompt\ncp jsonresume.schema.json prompt_with_jsonresume.txt\nNow add this text to the beginning & end prompt_with_jsonresume.txt\nCreate a resume for Dr. Evil from Austin Power movie, in json format, using this json schema:\n\n...\n...\nthe schema here\n...\n...\n\nPlease ensure to output ONLY VALID JSON:\n\n\n\nNow try with json schema\n\n./main \\\n  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \\\n  --ctx-size 0 \\\n  --temp 0.8 \\\n  --repeat_penalty 1.1 \\\n  --n-predict -1  \\\n  --threads 4 \\\n  --n-gpu-layers 2000000 \\\n  --json-schema jsonresume.schema.json \\\n  --file prompt_with_jsonresume.txt\nunfortunately, I got this error:\nterminate called after throwing an instance of 'nlohmann::json_abi_v3_11_3::detail::parse_error'\n  what():  [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'j'\nlet’s try without json schema parameter first:\n./main \\\n  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \\\n  --ctx-size 0 \\\n  --temp 0.8 \\\n  --repeat_penalty 1.1 \\\n  --n-predict -1  \\\n  --threads 4 \\\n  --n-gpu-layers 2000000 \\\n  --file prompt_with_jsonresume.txt\n** it works ! ** I think the original one just failed because output contain invalid character. I should try to play with the prompt more & maybe combine with grammar file as well\n\n./main \\\n  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \\\n  --ctx-size 0 \\\n  --temp 0.8 \\\n  --repeat_penalty 1.1 \\\n  --n-predict -1  \\\n  --threads 4 \\\n  --n-gpu-layers 2000000 \\\n  --grammar-file grammars/json.gbnf \\\n  --json-schema jsonresume.schema.json \\\n  --file prompt_with_jsonresume.txt\nUnfortunately, I still got that invalid character error even when I specified grammar-file. I should do more research\n\n./main \\\n  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \\\n  --ctx-size 0 \\\n  --temp 0.8 \\\n  --repeat_penalty 1.1 \\\n  --n-predict -1  \\\n  --threads 4 \\\n  --n-gpu-layers 2000000 \\\n  --grammar-file grammars/json.gbnf \\\n  --json-schema ./jsonresume.schema.json \\\n  --file prompt_with_jsonresume.txt\nOh found the issue - it expects the actual schema, not file path. there is a trick in the llama.cpp/example/main/README.md for external schema\n\n--json-schema SCHEMA: Specify a JSON schema to constrain model output to (e.g. {} for any JSON object, or {\"items\": {\"type\": \"string\", \"minLength\": 10, \"maxLength\": 100}, \"minItems\": 10} for a JSON array of strings with size constraints).\n\nIf a schema uses external $refs, you should use --grammar \"$( python examples/json_schema_to_grammar.py myschema.json )\" instead.\n\n\n\n./main \\\n  --model models/llama-3-8b-Instruct.Q5_K_M.gguf \\\n  --ctx-size 0 \\\n  --temp 0.8 \\\n  --repeat_penalty 1.1 \\\n  --n-predict -1  \\\n  --threads 4 \\\n  --n-gpu-layers 2000000 \\\n  --grammar-file grammars/json.gbnf \\\n  --grammar \"$( python examples/json_schema_to_grammar.py jsonresume.schema.json )\" \\\n  --file prompt_with_jsonresume.txt\nIt kinda works! - unfortunately the output is worse than before.\n{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"basics\":{\"name\":\"Dr. Evil\",\"label\":\"\",\"image\":\"\",\"email\":\"\",\"phone\":\"\",\"url\":\"\",\"summary\":\"\",\"location\":{\"address\":\"\",\"postalCode\":\"\",\"city\":\"\",\"countryCode\":\"\",\"region\":\"\"\"},\" :{ }},\"profiles\":[] \"],\" :{ }},\"work\":[],\"volunteer\":[],\"education\":[{\"institution\":\"\",\"studyType\":\"\",\"startDate\": \"1989-02-15\",\"endDate\": \"1994-06-15\",\"score\":\"\",\"courses\":[] \"}],\" :{ \"}},\n  \" :{} },\"awards\":{},\"certificates\":{},\"publications\":{},\"skills\":{},\"languages\":{},\"interests\":{},\"references\":{},\"projects\":{},\"meta\":{\"canonical\":\"\",\"version\":\"1.0.0\",\"lastModified\":\"\"}} ]} &lt;|eot_id|&gt; [end of text]\nMaybe it is because the schema is too complex. I should try with simpler schema\n\n\nIdeas\n\ntry with simpler schemas, with multiple level of questions,\n\ne.g. first ask for name, address, phone numbers\nthen ask for all companies they work for\nthen for each company ask for the position, start date, end date, etc\nit going to be rather expensive tho",
+    "crumbs": [
+      "Home",
+      "Extras",
+      "llama.cpp Experiment (wip)"
+    ]
+  },
+  {
+    "objectID": "extras/20240427-how-to-download-and-run-models-from-huggingface.html",
+    "href": "extras/20240427-how-to-download-and-run-models-from-huggingface.html",
+    "title": "How to download & run GGUF models",
+    "section": "",
+    "text": "Instruction to download & run GGUF models from Hugging Face.\nCREDIT to PrunaAI for providing the instruction.\nSource: https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/blob/main/README.md\n\n\nNote for manual downloaders: You almost never want to clone the entire repo! Multiple different quantisation formats are provided, and most users only want to pick and download a single file.\nThe following clients/libraries will automatically download models for you, providing a list of available models to choose from:\n\nLM Studio\nLoLLMS Web UI\nFaraday.dev\nOption A - Downloading in text-generation-webui:\nStep 1: Under Download Model, you can enter the model repo: PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed and below it, a specific filename to download, such as: phi-2.IQ3_M.gguf.\nStep 2: Then click Download.\nOption B - Downloading on the command line (including multiple files at once):\nStep 1: We recommend using the huggingface-hub Python library:\n\npip3 install huggingface-hub\n\nStep 2: Then you can download any individual model file to the current directory, at high speed, with a command like this:\n\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False\n\n\nMore advanced huggingface-cli download usage (click to read)\n\nAlternatively, you can also download multiple files at once with a pattern:\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed --local-dir . --local-dir-use-symlinks False --include='*Q4_K*gguf'\nFor more documentation on downloading with huggingface-cli, please see: HF -&gt; Hub Python Library -&gt; Download files -&gt; Download from the CLI.\nTo accelerate downloads on fast connections (1Gbit/s or higher), install hf_transfer:\npip3 install hf_transfer\nAnd set environment variable HF_HUB_ENABLE_HF_TRANSFER to 1:\nHF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False\nWindows Command Line users: You can set the environment variable by running set HF_HUB_ENABLE_HF_TRANSFER=1 before the download command.\n\n\n\n\n\n\n\nOption A - Introductory example with llama.cpp command\n\nMake sure you are using llama.cpp from commit d0cee0d or later.\n./main -ngl 35 -m Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 -p \"&lt;s&gt;[INST] {prompt\\} [/INST]\"\nChange -ngl 32 to the number of layers to offload to GPU. Remove it if you don’t have GPU acceleration.\nChange -c 32768 to the desired sequence length. For extended sequence models - eg 8K, 16K, 32K - the necessary RoPE scaling parameters are read from the GGUF file and set by llama.cpp automatically. Note that longer sequence lengths require much more resources, so you may need to reduce this value.\nIf you want to have a chat-style conversation, replace the -p &lt;PROMPT&gt; argument with -i -ins\nFor other parameters and how to use them, please refer to the llama.cpp documentation\n\nOption B - Running in text-generation-webui\n\nFurther instructions can be found in the text-generation-webui documentation, here: text-generation-webui/docs/04 ‐ Model Tab.md.\n\nOption C - Running from Python code\n\nYou can use GGUF models from Python using the llama-cpp-python or ctransformers libraries. Note that at the time of writing (Nov 27th 2023), ctransformers has not been updated for some time and is not compatible with some recent models. Therefore I recommend you use llama-cpp-python.\n### How to load this model in Python code, using llama-cpp-python\n\nFor full documentation, please see: [llama-cpp-python docs](https://abetlen.github.io/llama-cpp-python/).\n\n#### First install the package\n\nRun one of the following commands, according to your system:\n\n```shell\n# Base ctransformers with no GPU acceleration\npip install llama-cpp-python\n# With NVidia CUDA acceleration\nCMAKE_ARGS=\"-DLLAMA_CUBLAS=on\" pip install llama-cpp-python\n# Or with OpenBLAS acceleration\nCMAKE_ARGS=\"-DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=OpenBLAS\" pip install llama-cpp-python\n# Or with CLBLast acceleration\nCMAKE_ARGS=\"-DLLAMA_CLBLAST=on\" pip install llama-cpp-python\n# Or with AMD ROCm GPU acceleration (Linux only)\nCMAKE_ARGS=\"-DLLAMA_HIPBLAS=on\" pip install llama-cpp-python\n# Or with Metal GPU acceleration for macOS systems only\nCMAKE_ARGS=\"-DLLAMA_METAL=on\" pip install llama-cpp-python\n\n# In windows, to set the variables CMAKE_ARGS in PowerShell, follow this format; eg for NVidia CUDA:\n$env:CMAKE_ARGS = \"-DLLAMA_OPENBLAS=on\"\npip install llama-cpp-python\n```\n\n#### Simple llama-cpp-python example code\n\n```python\nfrom llama_cpp import Llama\n\n# Set gpu_layers to the number of layers to offload to GPU. Set to 0 if no GPU acceleration is available on your system.\nllm = Llama(\nmodel_path=\"./Phi-3-mini-128k-instruct.IQ3_M.gguf\",  # Download the model file first\nn_ctx=32768,  # The max sequence length to use - note that longer sequence lengths require much more resources\nn_threads=8,            # The number of CPU threads to use, tailor to your system and the resulting performance\nn_gpu_layers=35         # The number of layers to offload to GPU, if you have GPU acceleration available\n)\n\n# Simple inference example\noutput = llm(\n\"&lt;s&gt;[INST] {prompt} [/INST]\", # Prompt\nmax_tokens=512,  # Generate up to 512 tokens\nstop=[\"&lt;/s&gt;\"],   # Example stop token - not necessarily correct for this specific model! Please check before using.\necho=True        # Whether to echo the prompt\n)\n\n# Chat Completion API\n\nllm = Llama(model_path=\"./Phi-3-mini-128k-instruct.IQ3_M.gguf\", chat_format=\"llama-2\")  # Set chat_format according to the model you are using\nllm.create_chat_completion(\n    messages = [\n        {\"role\": \"system\", \"content\": \"You are a story writing assistant.\"},\n        {\n            \"role\": \"user\",\n            \"content\": \"Write a story about llamas.\"\n        }\n    ]\n)\n```\n\nOption D - Running with LangChain\n\nHere are guides on using llama-cpp-python and ctransformers with LangChain:\n\nLangChain + llama-cpp-python\nLangChain + ctransformers",
+    "crumbs": [
+      "Home",
+      "Extras",
+      "How to download & run GGUF models"
+    ]
+  },
+  {
+    "objectID": "extras/20240427-how-to-download-and-run-models-from-huggingface.html#how-to-download-gguf-files",
+    "href": "extras/20240427-how-to-download-and-run-models-from-huggingface.html#how-to-download-gguf-files",
+    "title": "How to download & run GGUF models",
+    "section": "",
+    "text": "Note for manual downloaders: You almost never want to clone the entire repo! Multiple different quantisation formats are provided, and most users only want to pick and download a single file.\nThe following clients/libraries will automatically download models for you, providing a list of available models to choose from:\n\nLM Studio\nLoLLMS Web UI\nFaraday.dev\nOption A - Downloading in text-generation-webui:\nStep 1: Under Download Model, you can enter the model repo: PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed and below it, a specific filename to download, such as: phi-2.IQ3_M.gguf.\nStep 2: Then click Download.\nOption B - Downloading on the command line (including multiple files at once):\nStep 1: We recommend using the huggingface-hub Python library:\n\npip3 install huggingface-hub\n\nStep 2: Then you can download any individual model file to the current directory, at high speed, with a command like this:\n\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False\n\n\nMore advanced huggingface-cli download usage (click to read)\n\nAlternatively, you can also download multiple files at once with a pattern:\nhuggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed --local-dir . --local-dir-use-symlinks False --include='*Q4_K*gguf'\nFor more documentation on downloading with huggingface-cli, please see: HF -&gt; Hub Python Library -&gt; Download files -&gt; Download from the CLI.\nTo accelerate downloads on fast connections (1Gbit/s or higher), install hf_transfer:\npip3 install hf_transfer\nAnd set environment variable HF_HUB_ENABLE_HF_TRANSFER to 1:\nHF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download PrunaAI/Phi-3-mini-128k-instruct-GGUF-smashed Phi-3-mini-128k-instruct.IQ3_M.gguf --local-dir . --local-dir-use-symlinks False\nWindows Command Line users: You can set the environment variable by running set HF_HUB_ENABLE_HF_TRANSFER=1 before the download command.",
+    "crumbs": [
+      "Home",
+      "Extras",
+      "How to download & run GGUF models"
+    ]
+  },
+  {
+    "objectID": "extras/20240427-how-to-download-and-run-models-from-huggingface.html#how-to-run-model-in-gguf-format",
+    "href": "extras/20240427-how-to-download-and-run-models-from-huggingface.html#how-to-run-model-in-gguf-format",
+    "title": "How to download & run GGUF models",
+    "section": "",
+    "text": "Option A - Introductory example with llama.cpp command\n\nMake sure you are using llama.cpp from commit d0cee0d or later.\n./main -ngl 35 -m Phi-3-mini-128k-instruct.IQ3_M.gguf --color -c 32768 --temp 0.7 --repeat_penalty 1.1 -n -1 -p \"&lt;s&gt;[INST] {prompt\\} [/INST]\"\nChange -ngl 32 to the number of layers to offload to GPU. Remove it if you don’t have GPU acceleration.\nChange -c 32768 to the desired sequence length. For extended sequence models - eg 8K, 16K, 32K - the necessary RoPE scaling parameters are read from the GGUF file and set by llama.cpp automatically. Note that longer sequence lengths require much more resources, so you may need to reduce this value.\nIf you want to have a chat-style conversation, replace the -p &lt;PROMPT&gt; argument with -i -ins\nFor other parameters and how to use them, please refer to the llama.cpp documentation\n\nOption B - Running in text-generation-webui\n\nFurther instructions can be found in the text-generation-webui documentation, here: text-generation-webui/docs/04 ‐ Model Tab.md.\n\nOption C - Running from Python code\n\nYou can use GGUF models from Python using the llama-cpp-python or ctransformers libraries. Note that at the time of writing (Nov 27th 2023), ctransformers has not been updated for some time and is not compatible with some recent models. Therefore I recommend you use llama-cpp-python.\n### How to load this model in Python code, using llama-cpp-python\n\nFor full documentation, please see: [llama-cpp-python docs](https://abetlen.github.io/llama-cpp-python/).\n\n#### First install the package\n\nRun one of the following commands, according to your system:\n\n```shell\n# Base ctransformers with no GPU acceleration\npip install llama-cpp-python\n# With NVidia CUDA acceleration\nCMAKE_ARGS=\"-DLLAMA_CUBLAS=on\" pip install llama-cpp-python\n# Or with OpenBLAS acceleration\nCMAKE_ARGS=\"-DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=OpenBLAS\" pip install llama-cpp-python\n# Or with CLBLast acceleration\nCMAKE_ARGS=\"-DLLAMA_CLBLAST=on\" pip install llama-cpp-python\n# Or with AMD ROCm GPU acceleration (Linux only)\nCMAKE_ARGS=\"-DLLAMA_HIPBLAS=on\" pip install llama-cpp-python\n# Or with Metal GPU acceleration for macOS systems only\nCMAKE_ARGS=\"-DLLAMA_METAL=on\" pip install llama-cpp-python\n\n# In windows, to set the variables CMAKE_ARGS in PowerShell, follow this format; eg for NVidia CUDA:\n$env:CMAKE_ARGS = \"-DLLAMA_OPENBLAS=on\"\npip install llama-cpp-python\n```\n\n#### Simple llama-cpp-python example code\n\n```python\nfrom llama_cpp import Llama\n\n# Set gpu_layers to the number of layers to offload to GPU. Set to 0 if no GPU acceleration is available on your system.\nllm = Llama(\nmodel_path=\"./Phi-3-mini-128k-instruct.IQ3_M.gguf\",  # Download the model file first\nn_ctx=32768,  # The max sequence length to use - note that longer sequence lengths require much more resources\nn_threads=8,            # The number of CPU threads to use, tailor to your system and the resulting performance\nn_gpu_layers=35         # The number of layers to offload to GPU, if you have GPU acceleration available\n)\n\n# Simple inference example\noutput = llm(\n\"&lt;s&gt;[INST] {prompt} [/INST]\", # Prompt\nmax_tokens=512,  # Generate up to 512 tokens\nstop=[\"&lt;/s&gt;\"],   # Example stop token - not necessarily correct for this specific model! Please check before using.\necho=True        # Whether to echo the prompt\n)\n\n# Chat Completion API\n\nllm = Llama(model_path=\"./Phi-3-mini-128k-instruct.IQ3_M.gguf\", chat_format=\"llama-2\")  # Set chat_format according to the model you are using\nllm.create_chat_completion(\n    messages = [\n        {\"role\": \"system\", \"content\": \"You are a story writing assistant.\"},\n        {\n            \"role\": \"user\",\n            \"content\": \"Write a story about llamas.\"\n        }\n    ]\n)\n```\n\nOption D - Running with LangChain\n\nHere are guides on using llama-cpp-python and ctransformers with LangChain:\n\nLangChain + llama-cpp-python\nLangChain + ctransformers",
+    "crumbs": [
+      "Home",
+      "Extras",
+      "How to download & run GGUF models"
+    ]
+  },
+  {
+    "objectID": "extras/20240430-mlflow-experiment.html",
+    "href": "extras/20240430-mlflow-experiment.html",
+    "title": "mlflow experiment (wip)",
+    "section": "",
+    "text": "I want to keep track of my experiments, whether LLM experiments, or other experiments as well.\nI want to be able to compare the result of different prompts, different scenario, different models, etc.\nI’d like to be able to do experiment with Langchain as well.\n\n\n\n\n\nMLFlow for keeping track of the experiments\nLangchain\nsome kind of inference server, probably llama.cpp server, or others\n[MLFlow + Langchain)(https://mlflow.org/docs/latest/llms/langchain/index.html)\n\nI want those tools to be simple to setup in my local, and can be inspected in the future as well, so I’ll try to make it run with docker and store the result locally & version-controlled so it can be inspected by others.\nI’d need couple other tools to do it:\n\ngit\ngit-lfs (to store sqlite db cleanly)\ndocker & docker compose - I originally wants to run it in docker, but it turned out running it natively is easier (w.r.t. installation & file permission issue)\nminio - to simulate S3, but store it locally - I thought I need minio to simulate s3, but it turned out mlflow can use local storage directly, and it makes everything easy\n\n\n\n\n\n\n\nmlflow is installed locally - using pip install mlflow. see requirements.txt\n\nI tried to install using conda and it worked, but somehow I got weird error: “You are very likely running the MLflow server using a source installation of the Python MLflow package” - so I just uninstall it and use pip installation\nSee the environment variables I use to run here: https://github.com/mudiarto/ml-notebooks/blob/43838aacb986f090de5f1b5a3395b5fec8b07602/justfile#L70-L75-",
+    "crumbs": [
+      "Home",
+      "Extras",
+      "mlflow experiment (wip)"
+    ]
+  },
+  {
+    "objectID": "extras/20240430-mlflow-experiment.html#setup",
+    "href": "extras/20240430-mlflow-experiment.html#setup",
+    "title": "mlflow experiment (wip)",
+    "section": "",
+    "text": "mlflow is installed locally - using pip install mlflow. see requirements.txt\n\nI tried to install using conda and it worked, but somehow I got weird error: “You are very likely running the MLflow server using a source installation of the Python MLflow package” - so I just uninstall it and use pip installation\nSee the environment variables I use to run here: https://github.com/mudiarto/ml-notebooks/blob/43838aacb986f090de5f1b5a3395b5fec8b07602/justfile#L70-L75-",
+    "crumbs": [
+      "Home",
+      "Extras",
+      "mlflow experiment (wip)"
+    ]
+  },
+  {
+    "objectID": "notes/index.html",
+    "href": "notes/index.html",
+    "title": "Notes",
+    "section": "",
+    "text": "Collection of my notes\n\n\n\n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nLinks and Refs\n\n\n\n\n\n\n\nMy dotfiles story (wip)\n\n\n\n\n\n\n\nNotes to self\n\n\n\n\n\n\n\nUpdating My Resume (wip)\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Notes"
+    ]
+  },
+  {
+    "objectID": "notes/20240506-notes-to-self.html",
+    "href": "notes/20240506-notes-to-self.html",
+    "title": "Notes to self",
+    "section": "",
+    "text": "List of notes to my future self\n\n\n\n\n\nuse https://anaconda.org/&lt;channel_name&gt;/repo to list all packages in the channel from: https://stackoverflow.com/a/70254570/674013\na lot of ways to search packages: https://stackoverflow.com/questions/43222407/how-to-list-package-versions-available-with-conda\n\n\n\n\n\nuse multi-stage builds to reduce image size and improve security",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Notes to self"
+    ]
+  },
+  {
+    "objectID": "notes/20240506-notes-to-self.html#tech",
+    "href": "notes/20240506-notes-to-self.html#tech",
+    "title": "Notes to self",
+    "section": "",
+    "text": "use https://anaconda.org/&lt;channel_name&gt;/repo to list all packages in the channel from: https://stackoverflow.com/a/70254570/674013\na lot of ways to search packages: https://stackoverflow.com/questions/43222407/how-to-list-package-versions-available-with-conda\n\n\n\n\n\nuse multi-stage builds to reduce image size and improve security",
+    "crumbs": [
+      "Home",
+      "Notes",
+      "Notes to self"
+    ]
+  },
+  {
+    "objectID": "tools/mlai-tools.html",
+    "href": "tools/mlai-tools.html",
+    "title": "ML/AI Tools/Links",
+    "section": "",
+    "text": "Links and my comments on tools that I found interesting around the web - in no particular orders\n\n\n\n\nTBD\n\n\n\n\nI am deciding between marimo and jupyter for doing my ML/AI learning. Marimo seems good, but for now, it seems jupyter is more standard and more supported. So I will use Jupyter for now, and probably experiment with marimo later\nI am experimenting with jupyter-ai\n\ninstallation was straightforward\njupyter-ai experiment notebook\n\n\n\n\n\n\nI want to be able to keep track of my experiment instead of doing it randomly.\n\n\n\n\n\n\nTBD",
+    "crumbs": [
+      "Home",
+      "Tools",
+      "ML/AI Tools/Links"
+    ]
+  },
+  {
+    "objectID": "tools/mlai-tools.html#tools-i-use",
+    "href": "tools/mlai-tools.html#tools-i-use",
+    "title": "ML/AI Tools/Links",
+    "section": "",
+    "text": "TBD\n\n\n\n\nI am deciding between marimo and jupyter for doing my ML/AI learning. Marimo seems good, but for now, it seems jupyter is more standard and more supported. So I will use Jupyter for now, and probably experiment with marimo later\nI am experimenting with jupyter-ai\n\ninstallation was straightforward\njupyter-ai experiment notebook\n\n\n\n\n\n\nI want to be able to keep track of my experiment instead of doing it randomly.",
+    "crumbs": [
+      "Home",
+      "Tools",
+      "ML/AI Tools/Links"
+    ]
+  },
+  {
+    "objectID": "tools/mlai-tools.html#tools-that-seems-useful",
+    "href": "tools/mlai-tools.html#tools-that-seems-useful",
+    "title": "ML/AI Tools/Links",
+    "section": "",
+    "text": "TBD",
+    "crumbs": [
+      "Home",
+      "Tools",
+      "ML/AI Tools/Links"
+    ]
+  },
+  {
+    "objectID": "tools/mlai-tools.html#refs",
+    "href": "tools/mlai-tools.html#refs",
+    "title": "ML/AI Tools/Links",
+    "section": "Refs:",
+    "text": "Refs:\n\nMudiarto ML/AI stars - My collection of ML/AI stars as I stumbled upon them",
+    "crumbs": [
+      "Home",
+      "Tools",
+      "ML/AI Tools/Links"
+    ]
+  },
+  {
+    "objectID": "tools/index.html",
+    "href": "tools/index.html",
+    "title": "Tools",
+    "section": "",
+    "text": "My semi organized list of tools\n“If the only tool you have is a hammer, it is tempting to treat everything as if it were a nail”\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nCLI Tools/Links (wip)\n\n\n\n\n\n\n\nML/AI Tools/Links\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Tools"
+    ]
+  }
+]

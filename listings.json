@@ -1,0 +1,26 @@
+[
+  {
+    "listing": "/extras/index.html",
+    "items": [
+      "/extras/20240427-how-to-download-and-run-models-from-huggingface.html",
+      "/extras/20240427-llamacpp-experiment.html",
+      "/extras/20240430-mlflow-experiment.html"
+    ]
+  },
+  {
+    "listing": "/notes/index.html",
+    "items": [
+      "/notes/20240510-links.html",
+      "/notes/20240505-dotfiles.html",
+      "/notes/20240506-notes-to-self.html",
+      "/notes/20240427-update-resume.html"
+    ]
+  },
+  {
+    "listing": "/tools/index.html",
+    "items": [
+      "/tools/cli-tools.html",
+      "/tools/mlai-tools.html"
+    ]
+  }
+]
