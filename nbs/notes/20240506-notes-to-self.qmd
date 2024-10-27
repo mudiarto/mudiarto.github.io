@@ -1,0 +1,27 @@
+# Notes to self
+
+List of notes to my future self
+
+
+
+
+
+
+## Tech:
+
+### Conda:
+
+- use `https://anaconda.org/<channel_name>/repo` to list all packages in the channel
+  from: <https://stackoverflow.com/a/70254570/674013>
+
+- a lot of ways to search packages:
+  <https://stackoverflow.com/questions/43222407/how-to-list-package-versions-available-with-conda>
+
+### Docker:
+
+- use [multi-stage builds](https://docs.docker.com/build/building/multi-stage/) to reduce image size and improve security
+
+
+
+## AI:
+

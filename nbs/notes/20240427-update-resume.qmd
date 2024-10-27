@@ -14,4 +14,4 @@ The input of the LLM will be somewhat unstructured data of projects i've done, t
 ### Steps:
 
 - [Install and experiment with llama.cpp](/extras/20240427-llamacpp-experiment.html)
-- TBD
+- TBD 

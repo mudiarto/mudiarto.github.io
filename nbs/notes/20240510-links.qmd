@@ -1,0 +1,23 @@
+# Links and Refs
+
+My unorganized list of links
+
+## AI
+
+### Learning AI
+
+#### books, tutorials
+- [Sebastian Raschka](https://sebastianraschka.com/books/) - good book to learn AI from scratch
+- [Dive into Deep Learning](https://d2l.ai) - learn ai from the concepts, the context, and the code. Academic.
+- [Fast AI](https://www.fast.ai/) - Practical deep learning for coders, with less math. Very practical
+- [Neural Network & Deep Learning](http://neuralnetworksanddeeplearning.com) - Free online book
+
+#### links
+- [AI Canon](https://a16z.com/ai-canon/) - collections of links to learn AI
+- [Ilya Sutskever to John Carmack list of links](https://arc.net/folder/6D437AC8-7D42-4B9D-AC58-34A7EF6010D4) - Ilya Sutskever “If you really learn all of these, you’ll know 90% of what matters today” (2024) - very technical
+
+#### refs, cheatsheets
+- [Google's Machine Learning Glossary](https://developers.google.com/machine-learning/glossary) - in case I forget something
+- [AI Wiki](https://machine-learning.paperspace.com/) - A repository of machine learning, data science, and artificial intelligence (AI) terms for individuals and businesses
+
+

@@ -1,6 +1,6 @@
 # ML/AI Tools/Links
 
-Links and my comments on tools that I found interesting around the web
+Links and my comments on tools that I found interesting around the web - in no particular orders
 
 ## Refs:
 - [Mudiarto ML/AI stars](https://github.com/stars/mudiarto/lists/ml-ai) - My collection of ML/AI stars as I stumbled upon them
@@ -8,5 +8,20 @@ Links and my comments on tools that I found interesting around the web
 ## Tools I use
 - TBD
 
+
+### Jupyter
+- I am deciding between [marimo](https://marimo.io/) and jupyter for doing my ML/AI learning. Marimo seems good,
+  but for now, it seems jupyter is more standard and more supported. So I will use Jupyter for now, and probably
+  experiment with marimo later
+
+- I am experimenting with [jupyter-ai](https://jupyter-ai.readthedocs.io/en/latest/index.html)
+  - installation was straightforward
+  - [jupyter-ai experiment notebook](https://github.com/mudiarto/ml-notebooks/blob/dev/notebooks/misc/test-jupyter-ai.ipynb)
+
+
+### MLFlow
+- I want to be able to keep track of my experiment instead of doing it randomly. 
+
 ## Tools that seems useful
 - TBD
+
